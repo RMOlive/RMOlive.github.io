@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>ArchLinux安装教程</title>
+  
+  <link rel="canonical" href="https://www.rmolives.com/2022/06/24/archlinux_install/">
+  
+  <meta name="description" content="ArchLinux是一个Linux发行版，使用Pacman包管理器，如果你要安装这个发行版并将主力系统迁移至ArchLinux的话，请确保你对Linux有足够的了解。 本教程仅针对实体机上的单系统安装，仅针对对Linux有一定了解的用户。 桌面环境使用KDE，使用XFS，使用Intel CPU，使用">
+  
+  
+  <meta name="keywords" content="RMOlive,晓诺诺">
+  
+  <meta name="author" content="RMOLive">
+  
+  <meta property="og:image" content="https://www.rmolives.comundefined">
+  
+  <meta property="og:site_name" content="諾諾の魔法ノート" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="ArchLinux安装教程" />
+  
+  <meta property="og:description" content="ArchLinux是一个Linux发行版，使用Pacman包管理器，如果你要安装这个发行版并将主力系统迁移至ArchLinux的话，请确保你对Linux有足够的了解。 本教程仅针对实体机上的单系统安装，仅针对对Linux有一定了解的用户。 桌面环境使用KDE，使用XFS，使用Intel CPU，使用">
+  
+  <meta property="og:url" content="https://www.rmolives.com/2022/06/24/archlinux_install/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ArchLinux安装教程">
+  
+  <meta name="twitter:description" content="ArchLinux是一个Linux发行版，使用Pacman包管理器，如果你要安装这个发行版并将主力系统迁移至ArchLinux的话，请确保你对Linux有足够的了解。 本教程仅针对实体机上的单系统安装，仅针对对Linux有一定了解的用户。 桌面环境使用KDE，使用XFS，使用Intel CPU，使用">
+  
+  
+  <meta name="twitter:image" content="https://www.rmolives.comundefined">
+  
+  <meta name="twitter:url" content="https://www.rmolives.com/2022/06/24/archlinux_install/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="../fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/prism-dark.css">
+
+  
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+
+  <!-- User css -->
+  
+  
+<link rel="stylesheet" href="/css/user.css">
+
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/resources/favicon.jpg">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #0FA0CE;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #0FA0CE 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #0FA0CE;
+  }
+  .nanobar .bar {
+    background: #0FA0CE;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #0FA0CE;
+    border-color: #0FA0CE;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #0FA0CE;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌑</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>☀️</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      諾諾の魔法ノート.
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+          
+          <a href="/about" class="ml">About</a>
+          
+        
+        
+          
+            <a href="mailto:rmolives＠163.com" target="_blank" class="ml">Email</a>
+          
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>ArchLinux安装教程</h2>
+
+  <p><strong>ArchLinux</strong>是一个<strong>Linux</strong>发行版，使用<strong>Pacman</strong>包管理器，如果你要安装这个发行版并将主力系统迁移至<strong>ArchLinux</strong>的话，请确保你对<strong>Linux</strong>有足够的了解。</p>
+<p>本教程仅针对<strong>实体机</strong>上的<strong>单系统</strong>安装，仅针对对<strong>Linux</strong>有一定了解的用户。</p>
+<p>桌面环境使用<strong>KDE</strong>，使用<strong>XFS</strong>，使用<strong>Intel CPU</strong>，使用<strong>Nvidia</strong>较新的独显，不开启<strong>Swap分区</strong>。</p>
+<p>首先，在安装前，我们要准备一个<strong>1GB</strong>以上的<strong>U盘</strong>。然后去国内镜像站，比如<a target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/">USTC Mirrors</a>下载最新镜像，使用<strong>Rufus</strong>将ISO镜像烧录到U盘中。</p>
+<h2 id="Boot-into-USB"><a href="#Boot-into-USB" class="headerlink" title="Boot into USB"></a>Boot into USB</h2><p>将<strong>U盘</strong>插入电脑，然后进入<strong>Bios</strong>切换引导至<strong>U盘</strong>。</p>
+<h2 id="系统时钟"><a href="#系统时钟" class="headerlink" title="系统时钟"></a>系统时钟</h2><p>进入系统后，首先要更新系统时钟。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">timedatectl set-ntp true<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="更换国内镜像源"><a href="#更换国内镜像源" class="headerlink" title="更换国内镜像源"></a>更换国内镜像源</h2><p>然后更换国内软件仓库镜像源加快下载速度。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">vim &#x2F;etc&#x2F;pacman.d&#x2F;mirrorlist<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在最开头添加</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">Server &#x3D; https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;archlinux&#x2F;$repo&#x2F;os&#x2F;$arch<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="分区和格式化"><a href="#分区和格式化" class="headerlink" title="分区和格式化"></a>分区和格式化</h2><p>首先，最基本的分区有2个，一个<strong>主分区</strong>，一个<strong>Boot分区</strong>。</p>
+<p>使用<strong>fdisk -l</strong>查看你要安装的硬盘，在这里假设是**&#x2F;dev&#x2F;nvme0n1**</p>
+<p>我们使用<strong>gdisk</strong>进行分区，执行<strong>gdisk &#x2F;dev&#x2F;nvme0n1</strong>，后输入<strong>o</strong>, 意味着create a new empty GUID partition table (GPT)，回车。</p>
+<p>然后，打<strong>n</strong>，新建分区，回车2次，在Last sector （截止扇区）键入：+512MB，UEFI启动系统会在这个新建的EFI分区里储存引导文件。</p>
+<p>接下来Hex code or GUID (L to show codes, Enter &#x3D; AF00): 这里打 EF00，因为我们要efi分区。</p>
+<p>然后再n一次，一路回车可以直接把剩下所有区块吃完。</p>
+<p>然后打w，写入之前的操作。</p>
+<p>此时，<strong>Boot分区</strong>分区应该是**&#x2F;dev&#x2F;nvme0n1p1<strong>，而</strong>主分区<strong>则是</strong>&#x2F;dev&#x2F;nvme0n1p2**。</p>
+<p>我们使用<strong>mkfs.fat</strong>格式化<strong>Boot分区</strong>，使用<strong>mkfs.xfs</strong>格式化<strong>主分区</strong>。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mkfs.fat -F32 &#x2F;dev&#x2F;nvme0n1p1
+mkfs.xfs -f &#x2F;dev&#x2F;nvme0n1p2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>接下来我们将<strong>主分区</strong>挂载到&#x2F;mnt上，并创建&#x2F;mnt&#x2F;boot，然后将<strong>Boot分区</strong>挂载到&#x2F;mnt&#x2F;boot上。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">mount &#x2F;dev&#x2F;nvme0n1p2 &#x2F;mnt
+mkdir &#x2F;mnt&#x2F;boot
+mount &#x2F;dev&#x2F;nvme0n1p1 &#x2F;mnt&#x2F;boot<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="pacstrap"><a href="#pacstrap" class="headerlink" title="pacstrap"></a>pacstrap</h2><p>输入以下命令安装。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">pacstrap &#x2F;mnt base base-devel linux linux-firmware dhcpcd vim intel-ucode nvidia<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="Fstab"><a href="#Fstab" class="headerlink" title="Fstab"></a>Fstab</h2><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">genfstab -U &#x2F;mnt &gt;&gt; &#x2F;mnt&#x2F;etc&#x2F;fstab<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="进入系统"><a href="#进入系统" class="headerlink" title="进入系统"></a>进入系统</h2><p>输入以下命令进入安装的<strong>Arch Linux</strong>。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">arch-chroot &#x2F;mnt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="引导"><a href="#引导" class="headerlink" title="引导"></a>引导</h2><p>在这里，我不使用<strong>Grub</strong>，而使用<strong>systemd</strong>的<strong>bootctl</strong>。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">bootctl install
+cd &#x2F;boot&#x2F;
+cd loader&#x2F;
+vim loader.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>将<strong>loader.conf</strong>的内容更改为：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">default arch
+timeout 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>接下来</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">cd entries&#x2F;
+vim arch.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>将<strong>arch.conf</strong>的内容更改为：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">title   Arch Linux
+linux   &#x2F;vmlinuz-linux
+initrd  &#x2F;intel-ucode.img
+initrd  &#x2F;initramfs-linux.img
+options root&#x3D;&#x2F;dev&#x2F;nvme0n1p2 rw<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>至此，引导便完成了。</p>
+<h2 id="设置主机名、Hosts与时区"><a href="#设置主机名、Hosts与时区" class="headerlink" title="设置主机名、Hosts与时区"></a>设置主机名、Hosts与时区</h2><p>首先在&#x2F;etc&#x2F;hostname设置主机名：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">vim &#x2F;etc&#x2F;hostname<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>将<strong>hostname</strong>的内容更改为主机名。这里假设输入的主机名是<strong>arch</strong></p>
+<p>接下来在&#x2F;etc&#x2F;hosts设置与其匹配的条目：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">vim &#x2F;etc&#x2F;hosts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>将<strong>hosts</strong>的内容更改为:</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">127.0.0.1   localhost
+::1         localhost
+127.0.1.1   arch.localdomain	arch<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>随后设置时区，在&#x2F;etc&#x2F;localtime下用&#x2F;usr中合适的时区创建符号链接。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">ln -sf &#x2F;usr&#x2F;share&#x2F;zoneinfo&#x2F;Asia&#x2F;Shanghai &#x2F;etc&#x2F;localtime<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>使用<strong>hwclock –systohc</strong>将系统时间同步到硬件时间。</p>
+<h2 id="设置-Locale"><a href="#设置-Locale" class="headerlink" title="设置 Locale"></a>设置 Locale</h2><p><strong>Locale</strong>决定了软件使用的语言、书写习惯和字符集。</p>
+<p>编辑&#x2F;etc&#x2F;locale.gen，去掉<strong>en_US.UTF-8 UTF-8</strong>以及<strong>zh_CN.UTF-8 UTF-8</strong>行前的注释符号。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">vim &#x2F;etc&#x2F;locale.gen<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>然后使用<strong>locale-gen</strong>生成locale。</p>
+<p>向 &#x2F;etc&#x2F;locale.conf 输入内容：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">echo &#39;LANG&#x3D;en_US.UTF-8&#39;  &gt; &#x2F;etc&#x2F;locale.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="为-root-用户设置密码"><a href="#为-root-用户设置密码" class="headerlink" title="为 root 用户设置密码"></a>为 root 用户设置密码</h2><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">passwd<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="更改wheel"><a href="#更改wheel" class="headerlink" title="更改wheel"></a>更改wheel</h2><p>输入命令<strong>visudo</strong>，找到如下这样的一行，把前面的注释符号去掉：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">#%wheel ALL&#x3D;(ALL) ALL<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h2><p>我们这里假设你创建的用户名叫<strong>xnn</strong>。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">useradd -m -G wheel xnn<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>然后使用<strong>passwd xnn</strong>更改密码。</p>
+<h2 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h2><p>输入<strong>exit</strong>退出，并使用<strong>reboot</strong>重启。然后把<strong>U盘</strong>拔掉。</p>
+<p>重启后使用新创建的用户登陆。</p>
+<h2 id="安装桌面环境和功能包"><a href="#安装桌面环境和功能包" class="headerlink" title="安装桌面环境和功能包"></a>安装桌面环境和功能包</h2><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">sudo pacman -S xorg-server plasma-meta konsole dolphin ark okular gwenview kate spectacle wget 
+sudo pacman -S noto-fonts noto-fonts-cjk noto-fonts-extra noto-fonts-emoji ttf-dejavu ttf-liberation
+sudo pacman -S fcitx5-im fcitx5-chinese-addons fcitx5-pinyin-zhwiki
+sudo pacman -S networkmanager<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>编辑&#x2F;etc&#x2F;environment，添加：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">GTK_IM_MODULE&#x3D;fcitx
+QT_IM_MODULE&#x3D;fcitx
+XMODIFIERS&#x3D;@im&#x3D;fcitx
+INPUT_METHOD&#x3D;fcitx
+SDL_IM_MODULE&#x3D;fcitx
+GLFW_IM_MODULE&#x3D;ibus<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="添加ArchLinuxCN"><a href="#添加ArchLinuxCN" class="headerlink" title="添加ArchLinuxCN"></a>添加ArchLinuxCN</h2><p>编辑&#x2F;etc&#x2F;pacman.conf，在末尾添加：</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">[archlinuxcn]
+Server &#x3D; mirrors.ustc.edu.cn&#x2F;archlinuxcn&#x2F;$arch<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>输入<strong>sudo pacman -Syyu</strong>更新，然后输入<strong>sudo pacman -S archlinuxcn-keyring</strong>。</p>
+<h2 id="安装yay并安装Chrome浏览器"><a href="#安装yay并安装Chrome浏览器" class="headerlink" title="安装yay并安装Chrome浏览器"></a>安装yay并安装Chrome浏览器</h2><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">sudo pacman -S yay
+yay -S google-chrome<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="Systemctl-enable"><a href="#Systemctl-enable" class="headerlink" title="Systemctl enable"></a>Systemctl enable</h2><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">systemctl enable sddm
+systemctl enable dhcpcd
+systemctl enable NetworkManager<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="进入图形界面"><a href="#进入图形界面" class="headerlink" title="进入图形界面"></a>进入图形界面</h2><p>重启电脑后就可以进入图形界面了。</p>
+<p>完毕.</p>
+
+  <p><a class="classtest-link" href="/tags/computer/" rel="tag">computer</a> — 2022年6月24日</p>
+  
+
+
+          <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+      <a class="ml-0 footer-link icon" href="https://github.com/RMOlive" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="GitHub">
+        <svg class="github svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+      
+
+      
+
+      
+      <a class="ml-0 footer-link icon" href="https://twitter.com/rmolives" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="Twitter">
+        <svg class="twitter svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Twitter</title><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"/></svg>
+      </a>
+      
+
+      
+
+    </div>
+  
+</div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>
